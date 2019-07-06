@@ -17,11 +17,14 @@ ZPlug_
 Commands
 --------
 
-`mkvirtualenv` creates a virtualenv using `pew` for a project
-`rmvirtualenv` destorys a virtualenv for a project using `pew`
-`install_requirements` installs python requirements found in the project
-`workon` manually activates virtualenv
+- `mkvirtualenv` creates a virtualenv using `pew` for a project
 
-`enable_pew_autoactivate` and `disable_pew_autoactivate` toggles pew autoactivation
+- `rmvirtualenv` destorys a virtualenv for a project using `pew`
+
+- `install_requirements` installs python requirements found in the project
+
+- `workon` manually activates virtualenv
+
+- `enable_pew_autoactivate` and `disable_pew_autoactivate` toggles pew autoactivation
 
 .. _Zplug: https://github.com/zplug/zplug
