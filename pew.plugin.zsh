@@ -20,7 +20,7 @@ function mkvirtualenv() {
     return
   fi
   local virtualenv_name="$(basename $PWD)"
-  printf "Creating ${PURPLE}%s${NONE} virtualenv\n" "$virtualenv_name"
+  printf "Creating ${PURPLE}%s${NORMAL} virtualenv\n" "$virtualenv_name"
 
   params=("${@[@]}")
 
@@ -28,7 +28,12 @@ function mkvirtualenv() {
     params+="--python=$PEW_DEFAULT_PYTHON"
   fi
 
-  pew new -d $params $virtualenv_name
+  if [[ -f "$PWD/Pipfile" ]]; then
+    pipenv install -d
+    local virtualenv_name="$(basename $(pipenv --venv))"
+  else
+    pew new -d $params $virtualenv_name
+  fi
 
   printf "$virtualenv_name\n" > ".venv"
   chmod 600 .venv
