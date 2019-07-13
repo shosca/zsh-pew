@@ -12,6 +12,8 @@ if ! type "pew" > /dev/null; then
   printf "If pew is already installed but you are still seeing this message, \n"
   printf "then make sure the ${BOLD}pew${NORMAL} command is in your PATH.\n"
   printf "\n"
+else
+  . $(pew shell_config)
 fi
 
 function mkvirtualenv() {
@@ -45,6 +47,10 @@ function workon() {
   local virtualenv_name=$(_check_venv "$PWD")
   if ! [[ -n "$virtualenv_name" ]]; then
     printf "Couldn't find a configured virtualenv. Please create a virtualenv using mkvirtualenv in project root.\n"
+    return
+  fi
+  if [[ -n "$VIRTUAL_ENV" ]]; then
+    printf "Already in a virtualenv.\n"
     return
   fi
   pew workon $virtualenv_name
@@ -140,7 +146,7 @@ function check_pew() {
   if ! [[ -n "$VIRTUAL_ENV" ]]; then
     if [[ -n "$virtualenv_name" ]]; then
       pew workon $virtualenv_name
-    elif [[ -f "$PWD/requirements.txt" || -f "$PWD/setup.py" || -f "$PWD/Pipfile" ]]; then
+    elif [[ -f "$PWD/requirements.txt" || -f "$PWD/setup.py" || -f "$PWD/Pipfile.lock" ]]; then
       printf "Python project detected. "
       printf "Run ${PURPLE}mkvirtualenv${NORMAL} to setup autoswitching\n"
     fi
