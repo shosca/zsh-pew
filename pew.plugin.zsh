@@ -56,6 +56,15 @@ function workon() {
   pew workon $virtualenv_name
 }
 
+function inve() {
+  local virtualenv_name=$(_check_venv "$PWD")
+  if ! [[ -n "$virtualenv_name" ]]; then
+    printf "Couldn't find a configured virtualenv. Please create a virtualenv using mkvirtualenv in project root.\n"
+    return
+  fi
+  pew in $virtualenv_name "$@"
+}
+
 function install_requirements() {
   local virtualenv_name=$(_check_venv "$PWD")
   if ! [[ -n "$virtualenv_name" ]]; then
