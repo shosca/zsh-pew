@@ -4,7 +4,7 @@ PURPLE="\e[35m"
 BOLD="\e[1m"
 NORMAL="\e[0m"
 
-if ! type "pew" > /dev/null; then
+if ! [ -x "$(command -v pew)" ]; then
   export DISABLE_PEW_AUTOACTIVATE="1"
   printf "${BOLD}${RED}"
   printf "pew required to auto activate virtualenvs.!\n\n"
